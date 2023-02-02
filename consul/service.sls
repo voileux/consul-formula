@@ -34,6 +34,11 @@ consul-init-file:
         group : {{ consul.group }}
         service_env_path : {{ consul.service_env_path }}
         user : {{ consul.user }}
+        {%- if grains.get('init') == 'systemd' %}
+          {%- for service_port in consul.config.ports  if consul.config.ports[service_port] < 1025 %}
+        capabilities: {{ consul.service_config.capabilities }}
+          {%- endfor %}
+        {%- endif %}
 
 {%- if consul.service %}
 

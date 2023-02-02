@@ -5,6 +5,9 @@ consul:
   # Start Consul agent service and enable it at boot time
   service: true
 
+  service_config
+    capabilities: CAP_NET_BIND_SERVICE
+    
   # Set user and group for Consul config files and running service
   user: consul
   group: consul
